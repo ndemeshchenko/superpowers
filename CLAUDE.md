@@ -134,9 +134,9 @@ This ensures every Claude instance knows to check for and use relevant skills.
 
 ### Marketplace
 
-Plugin is published to `obra/superpowers-marketplace`:
+Plugin is published to `ndemeshchenko/superpowers-marketplace`:
 ```bash
-/plugin marketplace add obra/superpowers-marketplace
+/plugin marketplace add ndemeshchenko/superpowers-marketplace
 /plugin install superpowers@superpowers-marketplace
 ```
 
