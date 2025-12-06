@@ -1,22 +1,24 @@
 ---
 name: requesting-code-review
-description: Use when completing tasks, implementing major features, or before merging to verify work meets requirements - uses zen MCP codereview tool with gpt-5 to review implementation against plan or requirements before proceeding
+description: Use when completing tasks, implementing major features, or before merging to verify work meets requirements - uses zen MCP codereview tool with gpt-5.1 to review implementation against plan or requirements before proceeding
 ---
 
 # Requesting Code Review
 
-Use `mcp__zen__codereview` with GPT-5 to catch issues before they cascade.
+Use `mcp__zen__codereview` with gpt-5.1 to catch issues before they cascade.
 
 **Core principle:** Review early, review often.
 
 ## When to Request Review
 
 **Mandatory:**
+
 - After each task in subagent-driven development
 - After completing major feature
 - Before merge to main
 
 **Optional but valuable:**
+
 - When stuck (fresh perspective)
 - Before refactoring (baseline check)
 - After fixing complex bug
@@ -38,8 +40,9 @@ git diff --name-only <base-sha> HEAD
 Use `mcp__zen__codereview` with these parameters:
 
 **Step 1 - Initial Review:**
+
 ```
-model: "gpt-5"
+model: "gpt-5.1"
 step: "Review implementation: [what was implemented]. Plan/requirements: [what it should do]. Focus on: code quality, architecture, testing, requirements alignment."
 step_number: 1
 total_steps: 1
@@ -52,23 +55,26 @@ standards: "[coding standards if applicable]"
 ```
 
 **Tool automatically:**
+
 - Analyzes code changes
 - Checks against requirements
 - Identifies issues with severity levels (critical/high/medium/low)
 - Provides recommendations
-- Uses GPT-5 for expert validation
+- Uses gpt-5.1 for expert validation
 
 ### 3. Act on Feedback
 
 The tool returns structured feedback with `issues_found`:
 
 **Severity mapping:**
+
 - **critical** → Fix immediately, blocks everything
 - **high** → Fix before proceeding to next task
 - **medium** → Fix before merge
 - **low** → Note for later cleanup
 
 **Action checklist:**
+
 - [ ] Address all critical issues immediately
 - [ ] Fix high-severity issues before next task
 - [ ] Document medium/low issues for later
@@ -86,7 +92,7 @@ Scenario: Just completed Task 2 - Add verification function
    tests/verify.test.ts
 
 2. Call mcp__zen__codereview:
-   model: "gpt-5"
+   model: "gpt-5.1"
    step: "Review implementation of verification and repair functions. Requirements: Task 2 from docs/plans/deployment-plan.md - add verifyIndex() and repairIndex() with 4 issue types. Focus on: correctness, test coverage, error handling."
    step_number: 1
    total_steps: 1
@@ -113,17 +119,20 @@ Scenario: Just completed Task 2 - Add verification function
 ## Integration with Workflows
 
 **Subagent-Driven Development:**
+
 - Call `mcp__zen__codereview` after EACH task
 - Set `review_type: "quick"` for small tasks
 - Set `review_type: "full"` for complex tasks
 - Fix issues before moving to next task
 
 **Executing Plans:**
+
 - Review after each batch (3 tasks)
 - Use `review_type: "full"`
 - Get feedback, apply, continue
 
 **Ad-Hoc Development:**
+
 - Review before merge (use `review_type: "full"`)
 - Review when stuck (use `focus_on` to specify concern)
 
@@ -132,6 +141,7 @@ Scenario: Just completed Task 2 - Add verification function
 ### Focused Reviews
 
 Specify particular concerns:
+
 ```
 focus_on: "performance optimization in data processing loop"
 ```
@@ -146,6 +156,7 @@ focus_on: "authentication and authorization logic"
 ### Follow-up Reviews
 
 After fixing issues, use `continuation_id` to reference previous review:
+
 ```
 continuation_id: "review-2025-01-14-task2"
 step: "Re-review after fixing progress indicators issue."
@@ -160,7 +171,8 @@ standards: "Follow Airbnb JavaScript style guide. All functions must have JSDoc 
 ## Tool Parameters Reference
 
 **Required:**
-- `model: "gpt-5"` - Always use GPT-5 for code review
+
+- `model: "gpt-5.1"` - Always use gpt-5.1 for code review
 - `step` - Description of what to review and requirements
 - `step_number: 1` - First step
 - `total_steps: 1` - Single-step review
@@ -169,11 +181,13 @@ standards: "Follow Airbnb JavaScript style guide. All functions must have JSDoc 
 - `relevant_files` - Absolute paths to files needing review
 
 **Recommended:**
+
 - `review_type` - "full" (default), "security", "performance", or "quick"
 - `focus_on` - Specific aspects to emphasize
 - `standards` - Coding standards to enforce
 
 **Optional:**
+
 - `continuation_id` - For follow-up reviews
 - `severity_filter` - Minimum severity to report ("critical", "high", "medium", "low", "all")
 - `use_websearch: true` - Research best practices (enabled by default)
@@ -181,12 +195,14 @@ standards: "Follow Airbnb JavaScript style guide. All functions must have JSDoc 
 ## Red Flags
 
 **Never:**
+
 - Skip review because "it's simple"
 - Ignore critical or high-severity issues
 - Proceed with unfixed high-severity issues
 - Argue with valid technical feedback
 
 **If feedback wrong:**
+
 - Push back with technical reasoning
 - Show code/tests that prove it works
 - Use `continuation_id` to continue discussion with context
@@ -196,6 +212,7 @@ standards: "Follow Airbnb JavaScript style guide. All functions must have JSDoc 
 **Legacy approach:** This skill previously used Task tool with `superpowers:code-reviewer` subagent.
 
 **Supporting files (now legacy):**
+
 - `requesting-code-review/code-reviewer.md` - Template (no longer needed)
 - `agents/code-reviewer.md` - Agent definition (no longer needed)
 

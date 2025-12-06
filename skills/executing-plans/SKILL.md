@@ -17,14 +17,14 @@ Load plan, review critically, execute tasks in batches, report for review betwee
 
 ### Step 1: Load and Review Plan
 1. Read plan file
-2. **Get gpt-5 plan critique:**
-   - Use `mcp__zen__chat` with model "gpt-5"
+2. **Get gpt-5.1 plan critique:**
+   - Use `mcp__zen__chat` with model "gpt-5.1"
    - Prompt: "Review this implementation plan critically before execution. Check for: completeness, clarity, missing dependencies, potential risks, edge cases not covered."
    - Include plan file in `files` parameter
    - Use `continuation_id: "plan-review-YYYY-MM-DD-<feature-name>"`
    - Set `use_websearch: true` for best practices
-3. Review critically - consider gpt-5 feedback plus your own analysis
-4. If concerns (from gpt-5 or your review): Raise them with your human partner before starting
+3. Review critically - consider gpt-5.1 feedback plus your own analysis
+4. If concerns (from gpt-5.1 or your review): Raise them with your human partner before starting
 5. If no concerns: Create TodoWrite and proceed
 
 ### Step 2: Execute Batch
@@ -56,9 +56,9 @@ After batch execution, assess complexity to set review type:
 ### Step 3: Report
 When batch complete:
 
-1. **Get gpt-5 batch review:**
+1. **Get gpt-5.1 batch review:**
    - Identify changed files: `git diff --name-only <batch-start> HEAD`
-   - Use `mcp__zen__codereview` with model "gpt-5"
+   - Use `mcp__zen__codereview` with model "gpt-5.1"
    - Parameters:
      - `step`: "Review batch N (Tasks X-Y). Plan requirements: [extract relevant task descriptions from plan]. Focus on: requirements alignment, test coverage, error handling"
      - `step_number: 1`, `total_steps: 1`, `next_step_required: false`
@@ -68,7 +68,7 @@ When batch complete:
      - `focus_on`: "alignment with plan requirements, test coverage"
      - `use_websearch: true`
 
-2. **Process gpt-5 findings by severity:**
+2. **Process gpt-5.1 findings by severity:**
    - **Critical/High**: Auto-fix immediately before reporting to human
    - **Medium/Low**: Include in report for human decision
 
@@ -82,7 +82,7 @@ When batch complete:
    **Verification:**
    - [Test results, build output]
 
-   **GPT-5 Review:**
+   **gpt-5.1 Review:**
    - Critical issues: [None / Fixed: description]
    - High severity: [None / Fixed: description]
    - Medium severity: [list or "None"]
@@ -104,9 +104,9 @@ After all tasks complete and verified:
 - **REQUIRED SUB-SKILL:** Use superpowers:finishing-a-development-branch
 - Follow that skill to verify tests, present options, execute choice
 
-## GPT-5 Review Integration
+## gpt-5.1 Review Integration
 
-This skill uses gpt-5 (via Zen MCP tools) for expert validation at two checkpoints:
+This skill uses gpt-5.1 (via Zen MCP tools) for expert validation at two checkpoints:
 
 ### Plan Review (Step 1)
 - **Tool:** `mcp__zen__chat`
@@ -121,7 +121,7 @@ This skill uses gpt-5 (via Zen MCP tools) for expert validation at two checkpoin
 - **Review depth:** Adaptive - "full" for complex changes, "quick" for simple
 
 ### Severity-Based Auto-Fix
-gpt-5 identifies issues with severity levels. Handle as follows:
+gpt-5.1 identifies issues with severity levels. Handle as follows:
 
 | Severity | Action | Rationale |
 |----------|--------|-----------|
@@ -160,11 +160,11 @@ gpt-5 identifies issues with severity levels. Handle as follows:
 **Don't force through blockers** - stop and ask.
 
 ## Remember
-- Use gpt-5 to review plan before starting (Step 1)
-- Use gpt-5 to review each batch before reporting (Step 3)
+- Use gpt-5.1 to review plan before starting (Step 1)
+- Use gpt-5.1 to review each batch before reporting (Step 3)
 - Auto-fix critical/high issues, report medium/low to human
 - Adaptive review depth: "full" for complex, "quick" for simple
-- Review plan critically first (with gpt-5 feedback)
+- Review plan critically first (with gpt-5.1 feedback)
 - Follow plan steps exactly
 - Don't skip verifications
 - Reference skills when plan says to

@@ -1,7 +1,7 @@
 {
   "name": "superpowers",
   "description": "Core skills library for Claude Code: TDD, debugging, collaboration patterns, and proven techniques (enhanced with zen MCP)",
-  "version": "3.4.1",
+  "version": "3.4.4",
   "author": {
     "name": "Mykyta Demeshchenko",
     "email": "ndemeshchenko@example.com"
@@ -9,5 +9,13 @@
   "homepage": "https://github.com/ndemeshchenko/superpowers",
   "repository": "https://github.com/ndemeshchenko/superpowers",
   "license": "MIT",
-  "keywords": ["skills", "tdd", "debugging", "collaboration", "best-practices", "workflows", "zen-mcp"]
+  "keywords": [
+    "skills",
+    "tdd",
+    "debugging",
+    "collaboration",
+    "best-practices",
+    "workflows",
+    "zen-mcp"
+  ]
 }
